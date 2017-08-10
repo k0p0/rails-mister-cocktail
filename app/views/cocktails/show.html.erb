@@ -1,0 +1,43 @@
+
+<div class="container">
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3">
+  <h1><%= @cocktail.name %></h1>
+  <h2>Ingredients list</h2>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Dose</th>
+        <th>Ingredient</th>
+        <th width="10%">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <% @cocktail.doses.each do |d| %>
+        <tr>
+          <td><%= d.description %></td>
+          <td><%=  d.ingredient.name %></td>
+          <td><%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, d, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<br>
+
+  <%= simple_form_for [@cocktail, @dose] do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :description, label: "add dose (in cl)" , placeholder: "6" %>
+    <%= f.association :ingredient, collection: Ingredient.order('name ASC'), label: "choose ingredient" %>
+    <%= f.button :submit , class:'btn btn-primary'%>
+    <% end %>
+
+<br>
+  <%= link_to 'Back', cocktails_path, class:'btn btn-primary' %>
+  <br><br>
+</div>
+
+</div>
+</div>

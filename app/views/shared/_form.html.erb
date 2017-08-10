@@ -1,0 +1,16 @@
+<%= simple_form_for (@cocktail) do |f| %>
+  <%= f.error_notification %>
+
+<!-- Deactivate label -->
+<%= f.input :name, label: false %>
+<!-- Change default label -->
+<%= f.input :name, label: "Enter name " %>
+<!-- Add placeholder -->
+<%= f.input :name, placeholder: "Mojito" %>
+<!-- Add HTML attributes on input -->
+<%= f.input :name, input_html: {class: "input-lg"} %>
+<!-- Add HTML attributes on label -->
+<%= f.input :name, label_html: {class: "label-lg"} %>
+<!-- Use collection for select -->
+  <%= f.button :submit %>
+<% end %>
