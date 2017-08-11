@@ -1,47 +1,30 @@
 <div class="navbar-wagon">
   <!-- Logo -->
   <%= link_to root_path, class: "navbar-wagon-brand" do %>
-    <%= image_tag "http://placehold.it/30x30" %>
+  <%= image_tag "logo.jpg" %>
   <% end %>
-
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
-
     <!-- Links -->
-    <%= link_to "Host", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-    <%= link_to "Trips", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-    <%= link_to "Messages", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-
-    <!-- Avatar with dropdown menu -->
-    <div class="navbar-wagon-item">
+    <%= link_to 'Add cocktail', new_cocktail_path,class: 'navbar-wagon-item navbar-wagon-link' %>
+    <%= link_to 'List cocktails', cocktails_path,class: 'navbar-wagon-item navbar-wagon-link' %>
+    <%= link_to "<i class='fa fa-search fa-lg'></i>".html_safe , class: "navbar-wagon-item navbar-wagon-link" %>
+   </div>
+    <!-- Dropdown list appearing on mobile only -->
+    <div class="navbar-wagon-item hidden-md hidden-lg">
       <div class="dropdown">
-        <%= image_tag "http://placehold.it/30x30", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+        <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
         <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
           <li>
-            <%= link_to "#" do %>
-              <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
-            <% end %>
+            <%= link_to 'Add cocktail', new_cocktail_path,class: 'navbar-wagon-item navbar-wagon-link' %>
           </li>
           <li>
-            <%= link_to "#" do %>
-              <i class="fa fa-home"></i>  <%= t(".profile", default: "Home") %>
-            <% end %>
+            <%= link_to 'List cocktails', cocktails_path,class: 'navbar-wagon-item navbar-wagon-link' %>
+          </li>
+          <li>
+            <%= link_to "Search cocktail", class: 'navbar-wagon-item navbar-wagon-link' %>
           </li>
         </ul>
       </div>
     </div>
   </div>
-
-  <!-- Dropdown list appearing on mobile only -->
-  <div class="navbar-wagon-item hidden-md hidden-lg">
-    <div class="dropdown">
-      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
-      <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-        <li><a href="#">Some mobile link</a></li>
-        <li><a href="#">Other one</a></li>
-        <li><a href="#">Other one</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-

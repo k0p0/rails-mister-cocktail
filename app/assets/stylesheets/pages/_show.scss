@@ -1,0 +1,13 @@
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &::before, &::after {
+    display: none;
+  }
+}
+
+.middle {
+  margin-top: 50px;
+}

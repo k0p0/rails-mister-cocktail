@@ -1,32 +1,50 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+puts "destroy all ingredients and cocktails"
 
-require 'open-uri'
-require 'nokogiri'
-require "json"
+Dose.destroy_all
+Cocktail.destroy_all
+Ingredient.destroy_all
+
+puts "create ingredient"
 
 url = "http://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
-
-page = open(url)
-contents = page.read
-h = JSON.parse(contents)['drinks']
-
+h = JSON.parse(open(url).read)['drinks']
 h.each do |r|
   Ingredient.create(name: "#{r['strIngredient1']}").save
 end
 
+puts "create cocktail"
 url = "http://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
-
-page = open(url)
-contents = page.read
-h = JSON.parse(contents)['drinks']
+h = JSON.parse(open(url).read)['drinks']
 
 h.each do |r|
-  Cocktail.create(name: "#{r['strDrink']}").save
-end
+  c = Cocktail.create(name: "#{r['strDrink']}")
 
+  # p ">>>> #{r['strDrinkThumb']}"
+
+  if r['strDrinkThumb'] == ""
+    c.remote_photo_url ="http://res.cloudinary.com/lmdn/image/upload/v1502459936/cocktail-vide_egqvkg.jpg"
+  else
+    c.remote_photo_url = r['strDrinkThumb']
+  end
+  c.save
+
+  url = "http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{r['idDrink']}"
+  h2 = JSON.parse(open(url).read)['drinks']
+
+  puts "adding #{c.name}"
+  i = 1
+  h2.each do |a|
+    c.instruction = a["strInstructions"]
+    c.save
+    (1..15).each do
+      if a["strMeasure#{i}"] != ""
+        d = Dose.new
+        d.description = a["strMeasure#{i}"]
+        d.ingredient = Ingredient.find_by_name(a["strIngredient#{i}"])
+        d.cocktail = c
+        d.save
+      end
+      i += 1
+    end
+  end
+end
