@@ -19,13 +19,12 @@ h = JSON.parse(open(url).read)['drinks']
 h.each do |r|
   c = Cocktail.create(name: "#{r['strDrink']}")
 
-  # p ">>>> #{r['strDrinkThumb']}"
-
-  if r['strDrinkThumb'] == ""
-    c.remote_photo_url ="http://res.cloudinary.com/lmdn/image/upload/v1502459936/cocktail-vide_egqvkg.jpg"
+  if r['strDrinkThumb'].blank? # .nil?
+    c.remote_photo_url ="https://res.cloudinary.com/lmdn/image/upload/v1502524635/cocktail-default_vvlfv4.jpg"
   else
     c.remote_photo_url = r['strDrinkThumb']
   end
+  puts "#{r['strDrinkThumb']}"
   c.save
 
   url = "http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{r['idDrink']}"

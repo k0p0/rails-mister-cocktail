@@ -31,10 +31,15 @@
         <%= f.error_notification %>
         <%= f.input :description, label: "add dose" , placeholder: "6" %>
         <%= f.association :ingredient, collection: Ingredient.order('name ASC'), label: "choose ingredient" %>
-        <%= f.button :submit , class:'btn btn-primary'%>
+        <%= f.button :submit , class:'btn-medium'%>
         <% end %>
         <br>
       </div>
     </div>
   </div>
-</div>
+
+
+
+
+
+
